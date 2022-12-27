@@ -5,6 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ErrorPage from "./pages/error";
+import MagicalForm from "./pages/magical_form";
 function App() {
   const router = createBrowserRouter([
   {
@@ -12,10 +13,10 @@ function App() {
     element: <Home />,
     errorElement: <ErrorPage />,
   },
-  // {
-  //   path: "contacts/:contactId",
-  //   element: <Contact />,
-  // },
+  {
+    path: "magical_form",
+    element: <MagicalForm />,
+  },
 ]);
   return (
           <RouterProvider router={router} />
