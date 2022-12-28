@@ -1,9 +1,30 @@
+import { useState } from "react";
+
 const MagicalForm = () => {
 
+  const [okPassword, setOkPassword] = useState({check: false, isOk:false})
+  const handleKey = (e) => {
+    if(e.length>0){
+    //password regex
+    let re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    //input password test on regex
+    const passwordTest = re.test(e);
+    if (passwordTest) {
+      setOkPassword({...okPassword, check:false, isOk:false})
+    }else{
+      setOkPassword({...okPassword, check:true, isOk:true})
+    }
+    }else{
+      setOkPassword({...okPassword, check:false})
+
+    }
+  };
   return (
     <div className="w-full max-w-sm m-auto p-4  my-16 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-      <form  className="space-y-6">
-        <h5 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h5>
+      <form className="space-y-6">
+        <h5 className="text-xl font-medium text-gray-900 dark:text-white">
+          Sign in to our platform
+        </h5>
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Name
@@ -15,7 +36,7 @@ const MagicalForm = () => {
             placeholder="your good name"
           />
         </div>
-            <div>
+        <div>
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Email
           </label>
@@ -35,7 +56,8 @@ const MagicalForm = () => {
             type="password"
             name="password"
             placeholder="••••••••"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            onChange={(e) => handleKey(e.target.value)}
+            className={"bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white " + (okPassword.check && okPassword.isOk ? "border-red-500" : "border-gray-300 ")}
           />
         </div>
         <button
